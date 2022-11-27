@@ -12,9 +12,9 @@
 #include <avr/interrupt.h>
 
 
-#define msPerCycleReal 560 // 
+#define msPerCycleReal 565 // 565 ms per watchdog timer in interrupt mode(configured "WDTO_500MS"), -> tweak it <-
 
-unsigned long MSec = 36900000; // 10:15
+unsigned long MSec = 0; // ex. 36900000 -> 10:15
 byte Minutes = 0;
 byte Hours = 0;
 
@@ -24,7 +24,7 @@ bool ButtonPress = false;
 
 ISR(WDT_vect) {
   ButtonPress = PINB & (1 << PINB4); // analog digitalRead(4);
-  MSec += msPerCycleReal; // 500 ms per cycle
+  MSec += msPerCycleReal; // 565 ms per cycle
 
   if (MSec >= 43200000) { // 43200000 ms -> 43200 sec = 12h
     MSec = MSec - 43200000; // increment MSec value compensation -> 43199999 + 555 = 43200554
