@@ -6,15 +6,15 @@
 
 #define F_CPU 1200000UL
 #include <avr/io.h>
-#include <avr/wdt.h>
+#include <avr/wdt.h> // Need for "wdt_..." macross
 #include <avr/sleep.h>
 #include <avr/power.h>
 #include <avr/interrupt.h>
 
 
-#define msPerCycleReal 565 // 565 ms per watchdog timer in interrupt mode(configured "WDTO_500MS"), -> tweak it <-
+#define msPerCycleReal 563 // 
 
-unsigned long MSec = 0; // ex. 36900000 -> 10:15
+unsigned long MSec = 33120000; // 06:00 (3600sec. per hour * 6)
 byte Minutes = 0;
 byte Hours = 0;
 
@@ -24,7 +24,7 @@ bool ButtonPress = false;
 
 ISR(WDT_vect) {
   ButtonPress = PINB & (1 << PINB4); // analog digitalRead(4);
-  MSec += msPerCycleReal; // 565 ms per cycle
+  MSec += msPerCycleReal; // 500 ms per cycle
 
   if (MSec >= 43200000) { // 43200000 ms -> 43200 sec = 12h
     MSec = MSec - 43200000; // increment MSec value compensation -> 43199999 + 555 = 43200554
