@@ -4,7 +4,7 @@ Simple Binary Watches with 4 LED(1/5, 2/10, 4/20, 8/40), it mean 5 minute accura
 
 # How it's work?
 
-Every 0.5 sec CPU wake up and increase second's value and come sleep mode(4 uA). 
+Every 0.5 sec CPU wake up and increase milliseconds value and come sleep mode(4 uA). 
 
 If you press button "SHOWTIME();" it show hours and minutes(0.5 seconds per value) in binary mode in 4 LEDs.
 
