@@ -5,6 +5,11 @@ Simple Binary Watches with 4 LED(1/5, 2/10, 4/20, 8/40), it mean 5 minute accura
 It's project full open source(PCB and code).
 https://github.com/techn0man1ac/ATtiny13BinaryWatches
 By Tech01 labs 2023.
+
+Fuses to defalt:
+low_fuses=0x6A
+high_fuses=0xFF
+CPU Frequensy 1,2 MHz
 */
 
 #define F_CPU 1200000UL // 1.2 MHz CPU mode(low_fuses=0x6A high_fuses=0xFF - defalt fuses)
