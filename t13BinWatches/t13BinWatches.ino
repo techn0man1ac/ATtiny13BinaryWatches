@@ -1,15 +1,15 @@
 /*
-Tech01 Digital Binary Clock
+  Tech01 Digital Binary Clock
 
-Simple Binary Watches with 4 LED(1/5, 2/10, 4/20, 8/40), it mean 5 minute accuracy indicate.
-It's project full open source(PCB and code).
-https://github.com/techn0man1ac/ATtiny13BinaryWatches
-By Tech01 labs 2022.
+  Simple Binary Watches with 4 LED(1/5, 2/10, 4/20, 8/40), it mean 5 minute accuracy indicate.
+  It's project full open source(PCB and code).
+  https://github.com/techn0man1ac/ATtiny13BinaryWatches
+  By Tech01 labs 2022.
 
-Fuses to defalt:
-low_fuses=0x6A
-high_fuses=0xFF
-CPU Frequensy 1,2 MHz
+  Fuses to defalt:
+  low_fuses=0x6A
+  high_fuses=0xFF
+  CPU Frequensy 1,2 MHz
 */
 
 #define F_CPU 1200000UL // 1.2 MHz CPU mode(low_fuses=0x6A high_fuses=0xFF - defalt fuses)
@@ -23,10 +23,10 @@ CPU Frequensy 1,2 MHz
 #define msPerCycleReal 563 // it's mean 500 ms in real life
 
 unsigned long MSec = 33120000; // 06:00 (3600sec. per hour * 6)
-byte Minutes = 0;
-byte Hours = 0;
+uint8_t Minutes = 0;
+uint8_t Hours = 0;
 
-byte Mode = 0;
+uint8_t Mode = 0;
 
 bool ButtonPress = false;
 
@@ -38,8 +38,8 @@ ISR(WDT_vect) {
     MSec = MSec - 43200000; // increment MSec value compensation -> 43199999 + 555 = 43200554 -> 554
   }
 
-  if (ButtonPress == true || Mode > 0 ) { // if (digitalRead(4) == HIGH){
-    Mode = ShowTime(Mode);
+  if (ButtonPress || Mode > 0 ) { // if (digitalRead(4) == HIGH){
+    Mode = ShowTime(Mode); // Show time on LED in binary format
   }
 
   WDTCR |= (1 << WDTIE);
@@ -51,7 +51,7 @@ int main() {
   // Set up Port B as Input
   DDRB = 0b0000;
   wdt_reset();
-  wdt_enable(WDTO_500MS);
+  wdt_enable(WDTO_500MS); // Set watchdog timer to trigger every 500 ms
   // Set watchdog timer in interrupt mode
   WDTCR |= (1 << WDTIE);
   sei(); // Enable global interrupts
@@ -64,41 +64,48 @@ int main() {
   return 0;
 }
 
-byte ShowTime(byte currState) {
-  byte TempValue = 0;
+uint8_t ShowTime(uint8_t currState) {
+  uint8_t LEDValue = 0;
   switch (currState) { //Final state machine
     case 0:
-      Hours = MSec / 3600000; // 3600 sec per hour
+      if (!MSec) { // protect divide by zero(if MSec not = 0), thanks ChatGPT 
+        Hours = 0;
+      } else {
+        Hours = MSec / 3600000; // 3600 sec per hour
+      }
 
       if (Hours == 0) {
-        TempValue = 15;
+        LEDValue = 15; // All LED light
       } else {
-        TempValue = Hours;
+        LEDValue = Hours;
       }
       currState = 1; // Next state
       break;
 
     case 1:
-      Minutes = ((MSec / 60000) % 60 ) / 5; // 60 Seconds per minutes
+      if (!MSec) { // protect divide by zero, thanks ChatGPT
+        Minutes = 0;
+      } else {
+        Minutes = ((MSec / 60000) % 60 ) / 5; // 60 Seconds per minutes
+      }
 
       if (Minutes >= 55) {
-        TempValue = 15;
+        LEDValue = 15;
       } else {
-        TempValue = Minutes + 1; // " + 1" - 5 minutes in the future
+        LEDValue = Minutes + 1; // " + 1" - 5 minutes in the future
       }
       currState = 2;
       break;
 
     case 2:
-      TempValue = 0;
+      LEDValue = 0;
       currState = 0;
       break;
 
     default:
       return -1; // some wrong
-      break;
   }
 
-  PORTB = TempValue;
+  PORTB = LEDValue; // Set Port B to LEDValue
   return currState;
 }
