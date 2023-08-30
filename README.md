@@ -43,7 +43,7 @@ https://oshwlab.com/raznie.podelki/attiny13binarywatches
 
 It's have simple schematic, there are 11 components in total:
 
-![PCB Down](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/PCB/Schematic/Schematic_ATtiny13BinaryWatches_2023-02-12.png)
+![PCB Down](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/PCB/Schematic/Schematic_ATtiny13BinaryWatches_2023-08-30.png
 
 I use CPU internal resistor for LED's.
 
