@@ -6,7 +6,7 @@ Simple Binary Watches with 4 LED(1/5, 2/10, 4/20, 8/40), it mean 5 minute accura
 
 ![PCB battery](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/Imgs/Back.jpg)
 
-# Wideo demonstration:
+# Video demonstration:
 
 https://youtu.be/qP_2BFFjp1M
 
