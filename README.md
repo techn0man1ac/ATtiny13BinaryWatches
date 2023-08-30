@@ -41,7 +41,7 @@ https://oshwlab.com/raznie.podelki/attiny13binarywatches
 
 # Schematic:
 
-It's have simple schematic, there are 11 components in total:
+It's have simple schematic, there are 15 components in total:
 
 ![Schematic clock](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/PCB/Schematic/Schematic_ATtiny13BinaryWatches_2023-08-30.png)
 
