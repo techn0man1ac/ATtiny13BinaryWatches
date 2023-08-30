@@ -35,6 +35,31 @@ PCB size 27 mm in diameter(size little biger CR2032 battery):
 
 ![PCB Down](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/Imgs/PCBSizesATtiny13BinaryWatches.png)
 
+
+# How to flash
+
+![AVR ISP programmer pinout](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/b00d6590e63a067a6244c02c785c1a703c8272ea/Imgs/AVR_ISP.png)
+
+Here is pinout for AVR ISP programmer - MOSI ATtiny13 -> MISO programer(Digital Pin 11), MISO->MOSI(Digital Pin 12), SCK->SCK(Digital Pin 13) RES->Reset(Digital Pin 10). How to flash ATtiny13 with Arduino:
+
+https://www.hackster.io/taunoerik/programming-attiny13-with-arduino-uno-07beba
+
+![PCB Down](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/629a8b0e76258bf3141a77024f074f052fd18a4a/Imgs/FLASH.png)
+
+ATtiny13 core selections:
+
+Board: ATtiny 13
+
+BOD: BOD Disabled
+
+Clock: 1.2 MHz internal osc.
+
+Compiler LTO: Enable
+
+Port: (Your Arduino port)
+
+Programmer: Arduino as ISP
+
 # PCB home page:
 
 https://oshwlab.com/raznie.podelki/attiny13binarywatches
