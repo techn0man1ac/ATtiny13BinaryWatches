@@ -4,7 +4,7 @@
 
   Simple Binary Watches with 4 LED(1/5, 2/10, 4/20, 8/40), it mean 5 minute accuracy indicate.
   It's project full open source(PCB and code).
-  https://github.com/techn0man1ac/ATtiny13BinaryWatches
+
   By Tech01 labs 2022.
 
   Fuses to defalt:
