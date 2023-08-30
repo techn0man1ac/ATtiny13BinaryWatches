@@ -16,12 +16,6 @@ Every 0.5 sec CPU wake up(cycle iteration time 200 nS) and increase milliseconds
 
 If you press button "SHOWTIME();" it show hours and minutes(0.5 seconds per value) in binary mode in 4 LEDs.
 
-Source code(for Arduino IDE - "t13B Watches.ino") here:
-
-https://github.com/techn0man1ac/ATtiny13BinaryWatches/tree/main/t13BinWatches
-
-It's project full open source(PCB and code).
-
 # 3D model PCB:
 PCB Up side:
 
@@ -48,17 +42,23 @@ https://www.hackster.io/taunoerik/programming-attiny13-with-arduino-uno-07beba
 
 ATtiny13 core selections:
 
-Board: ATtiny 13
+- Board: ATtiny 13
 
-BOD: BOD Disabled
+- BOD: BOD Disabled
 
-Clock: 1.2 MHz internal osc.
+- Clock: 1.2 MHz internal osc.
 
-Compiler LTO: Enable
+- Compiler LTO: Enable
 
-Port: (Your Arduino port)
+- Port: (Your Arduino port)
 
-Programmer: Arduino as ISP
+- Programmer: Arduino as ISP
+
+Source code(for Arduino IDE - "t13B Watches.ino") here:
+
+https://github.com/techn0man1ac/ATtiny13BinaryWatches/tree/main/t13BinWatches
+
+It's project full open source(PCB and code).
 
 # PCB home page:
 
