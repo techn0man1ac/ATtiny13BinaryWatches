@@ -1,5 +1,6 @@
 /*
-  Tech01 Digital Binary Clock
+  Tech01 Digital Binary Clock By Serhii Trush for MIT License
+  https://github.com/techn0man1ac/ATtiny13BinaryWatches
 
   Simple Binary Watches with 4 LED(1/5, 2/10, 4/20, 8/40), it mean 5 minute accuracy indicate.
   It's project full open source(PCB and code).
@@ -20,9 +21,9 @@
 #include <avr/interrupt.h>
 
 
-#define msPerCycleReal 563 // it's mean 500 ms in real life
+#define msPerCycleReal 558 // it's mean 500 ms in real life
 
-unsigned long MSec = 33120000; // 06:00 (3600sec. per hour * 6)
+unsigned long MSec = 33120000; // 09:15 (3600sec. per hour * 6)
 uint8_t Minutes = 0;
 uint8_t Hours = 0;
 
@@ -30,7 +31,7 @@ uint8_t Mode = 0;
 
 bool ButtonPress = false;
 
-ISR(WDT_vect) {
+ISR(WDT_vect) { // code iteration time is 200 nS
   ButtonPress = PINB & (1 << PINB4); // analog digitalRead(4);
   MSec += msPerCycleReal; // 500 ms per cycle
 
@@ -49,11 +50,10 @@ int main() {
   ADCSRA &= ~(1 << ADEN); //Disable ADC
   ACSR = (1 << ACD); //Disable the analog comparator
   // Set up Port B as Input
-  DDRB = 0b0000;
+  DDRB = 0b1111; // Use 470 ohm resistor per LED
   wdt_reset();
   wdt_enable(WDTO_500MS); // Set watchdog timer to trigger every 500 ms
-  // Set watchdog timer in interrupt mode
-  WDTCR |= (1 << WDTIE);
+  WDTCR |= (1 << WDTIE); // Set watchdog timer in interrupt mode
   sei(); // Enable global interrupts
 
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
