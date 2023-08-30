@@ -38,7 +38,7 @@ Here is pinout for AVR ISP programmer - MOSI ATtiny13 -> MISO programer(Digital 
 
 https://www.hackster.io/taunoerik/programming-attiny13-with-arduino-uno-07beba
 
-![PCB Down](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/629a8b0e76258bf3141a77024f074f052fd18a4a/Imgs/FLASH.png)
+![FLASH](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/629a8b0e76258bf3141a77024f074f052fd18a4a/Imgs/FLASH.png)
 
 ATtiny13 core selections:
 
@@ -53,6 +53,8 @@ ATtiny13 core selections:
 - Port: (Your Arduino port)
 
 - Programmer: Arduino as ISP
+
+![Arduino IDE](https://github.com/techn0man1ac/ATtiny13BinaryWatches/blob/82cb183568d90e219ba5d9926f93f70cab1a7d6e/Imgs/ArduinoIDE.png)
 
 Source code(for Arduino IDE - "t13B Watches.ino") here:
 
