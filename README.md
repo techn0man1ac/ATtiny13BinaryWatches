@@ -38,7 +38,7 @@ Here is pinout for AVR ISP programmer - MOSI ATtiny13 -> MISO programer(Digital 
 
 https://www.hackster.io/taunoerik/programming-attiny13-with-arduino-uno-07beba
 
-![FLASH](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/629a8b0e76258bf3141a77024f074f052fd18a4a/Imgs/FLASH.png)
+![FLASH](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/Imgs/FLASH.png)
 
 ATtiny13 core selections:
 
