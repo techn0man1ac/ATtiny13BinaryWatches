@@ -29,6 +29,9 @@ PCB size 27 mm in diameter(size little biger CR2032 battery):
 
 ![PCB Down](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/Imgs/PCBSizesATtiny13BinaryWatches.png)
 
+# PCB home page:
+
+https://oshwlab.com/raznie.podelki/attiny13binarywatches
 
 # How to flash
 
@@ -61,10 +64,6 @@ Source code(for Arduino IDE - "t13B Watches.ino") here:
 https://github.com/techn0man1ac/ATtiny13BinaryWatches/tree/main/t13BinWatches
 
 It's project full open source(PCB and code).
-
-# PCB home page:
-
-https://oshwlab.com/raznie.podelki/attiny13binarywatches
 
 # Schematic:
 
