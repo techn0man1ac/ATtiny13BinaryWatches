@@ -13,48 +13,45 @@
   CPU Frequensy 1,2 MHz
 */
 
-#define F_CPU 1200000UL // 1.2 MHz CPU mode(low_fuses=0x6A high_fuses=0xFF - defalt fuses)
+#define F_CPU 1200000UL  // 1.2 MHz CPU mode(low_fuses=0x6A high_fuses=0xFF - defalt fuses)
 #include <avr/io.h>
-#include <avr/wdt.h> // Need for "wdt_..." macross
+#include <avr/wdt.h>  // Need for "wdt_..." macross
 #include <avr/sleep.h>
 #include <avr/power.h>
 #include <avr/interrupt.h>
 
 
-#define msPerCycleReal 558 // it's mean 500 ms in real life
+#define msPerCycleReal 556  // it's mean 500 ms in real life
 
-unsigned long MSec = 33120000; // 09:15 (3600sec. per hour * 6)
+unsigned long MSec = 33120000;  // 09:15 (3600sec. per hour * 6)
 uint8_t Minutes = 0;
 uint8_t Hours = 0;
 
 uint8_t Mode = 0;
 
-bool ButtonPress = false;
+ISR(WDT_vect) {            // code iteration time is 200 nS
+  MSec += msPerCycleReal;  // 500 ms per cycle
 
-ISR(WDT_vect) { // code iteration time is 200 nS
-  ButtonPress = PINB & (1 << PINB4); // analog digitalRead(4);
-  MSec += msPerCycleReal; // 500 ms per cycle
-
-  if (MSec >= 43200000) { // 43200000 ms -> 43200 sec = 12h
-    MSec = MSec - 43200000; // increment MSec value compensation -> 43199999 + 555 = 43200554 -> 554
+  if (MSec >= 43200000) {    // 43200000 ms -> 43200 sec = 12h
+    MSec = MSec - 43200000;  // increment MSec value compensation -> 43199999 + 555 = 43200554 -> 554
   }
 
-  if (ButtonPress || Mode > 0 ) { // if (digitalRead(4) == HIGH){
-    Mode = ShowTime(Mode); // Show time on LED in binary format
+  if (PINB & (1 << PINB4) || Mode > 0) {  // if (digitalRead(4) == HIGH)
+    Mode = ShowTime(Mode);                // Show time on LED in binary format
   }
 
   WDTCR |= (1 << WDTIE);
 }
 
 int main() {
-  ADCSRA &= ~(1 << ADEN); //Disable ADC
-  ACSR = (1 << ACD); //Disable the analog comparator
+  ADCSRA &= ~(1 << ADEN);  //Disable ADC
+  ACSR = (1 << ACD);       //Disable the analog comparator
   // Set up Port B as Input
-  DDRB = 0b1111; // Use 470 ohm resistor per LED
+  DDRB = 0b01111;  // Use 470 ohm resistor per LED
   wdt_reset();
-  wdt_enable(WDTO_500MS); // Set watchdog timer to trigger every 500 ms
-  WDTCR |= (1 << WDTIE); // Set watchdog timer in interrupt mode
-  sei(); // Enable global interrupts
+  wdt_enable(WDTO_500MS);  // Set watchdog timer to trigger every 500 ms
+  WDTCR |= (1 << WDTIE);   // Set watchdog timer in interrupt mode
+  sei();                   // Enable global interrupts
 
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   while (1) {
@@ -66,46 +63,46 @@ int main() {
 
 uint8_t ShowTime(uint8_t currState) {
   uint8_t LEDValue = 0;
-  switch (currState) { //Final state machine
+  switch (currState) {  //Final state machine
     case 0:
-      if (!MSec) { // protect divide by zero(if MSec not = 0), thanks ChatGPT 
+      if (!MSec) {  // protect divide by zero(if MSec not = 0), thanks ChatGPT
         Hours = 0;
       } else {
-        Hours = MSec / 3600000; // 3600 sec per hour
+        Hours = MSec / 3600000;  // 3600 sec per hour
       }
 
       if (Hours == 0) {
-        LEDValue = 15; // All LED light
+        LEDValue = 15;  // All LED light
       } else {
         LEDValue = Hours;
       }
-      currState = 1; // Next state
+      DDRB = 0b1111; // Turn on ouptuts
+
+      currState = 1;  // Next state
       break;
 
     case 1:
-      if (!MSec) { // protect divide by zero, thanks ChatGPT
+      if (!MSec) {  // protect divide by zero, thanks ChatGPT
         Minutes = 0;
       } else {
-        Minutes = ((MSec / 60000) % 60 ) / 5; // 60 Seconds per minutes
+        Minutes = ((MSec / 60000) % 60) / 5;  // 60 Seconds per minutes
       }
 
-      if (Minutes >= 55) {
-        LEDValue = 15;
-      } else {
-        LEDValue = Minutes + 1; // " + 1" - 5 minutes in the future
-      }
+      LEDValue = Minutes;
+
       currState = 2;
       break;
 
     case 2:
       LEDValue = 0;
+      DDRB = 0b0000; // Turn off outputs(Hi-Z state) for low consumption
       currState = 0;
       break;
 
     default:
-      return -1; // some wrong
+      return -1;  // some wrong
   }
 
-  PORTB = LEDValue; // Set Port B to LEDValue
+  PORTB = LEDValue;  // Set Port B to LEDValue
   return currState;
 }
