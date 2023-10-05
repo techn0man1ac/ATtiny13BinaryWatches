@@ -21,9 +21,9 @@
 #include <avr/interrupt.h>
 
 
-#define msPerCycleReal 556  // it's mean 500 ms in real life
+#define msPerCycleReal 560  // it's mean 500 ms in real life
 
-unsigned long MSec = 33120000;  // 09:15 (3600sec. per hour * 6)
+volatile unsigned long MSec = 33120000;  // 09:15 (3600sec. per hour * 6)
 uint8_t Minutes = 0;
 uint8_t Hours = 0;
 
@@ -72,7 +72,7 @@ uint8_t ShowTime(uint8_t currState) {
       }
 
       if (Hours == 0) {
-        LEDValue = 15;  // All LED light
+        LEDValue = 12;  // 
       } else {
         LEDValue = Hours;
       }
@@ -85,7 +85,7 @@ uint8_t ShowTime(uint8_t currState) {
       if (!MSec) {  // protect divide by zero, thanks ChatGPT
         Minutes = 0;
       } else {
-        Minutes = ((MSec / 60000) % 60) / 5;  // 60 Seconds per minutes
+        Minutes = ((MSec / 60000) % 60) / 5;  // 60 Seconds per minutes(5 min to discrete)
       }
 
       LEDValue = Minutes;
