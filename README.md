@@ -12,9 +12,9 @@ https://youtu.be/qP_2BFFjp1M
 
 # How it's work?
 
-Every 0.5 sec CPU wake up(cycle iteration time 200 nS) and increase milliseconds value and come sleep mode(4 uA). 
+Every 0.5 sec CPU wake up(cycle iteration time 100 nS) and increase milliseconds value and come sleep mode(3 uA). 
 
-If you press button "SHOWTIME();" it show hours and minutes(0.5 seconds per value) in binary mode in 4 LEDs.
+If you press button "TIME();" it show hours and minutes(0.5 seconds per value) in binary mode in 4 LEDs.
 
 # 3D model PCB:
 PCB Up side:
