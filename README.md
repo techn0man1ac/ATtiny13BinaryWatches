@@ -17,6 +17,7 @@ Every 0.5 sec CPU wake up(cycle iteration time 100 nS) and increase milliseconds
 If you press button "TIME();" it show hours and minutes(0.5 seconds per value) in binary mode in 4 LEDs.
 
 # 3D model PCB:
+
 PCB Up side:
 
 ![PCB Up](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/Imgs/PCBUpATtiny13BinaryWatches.png)
@@ -29,9 +30,25 @@ PCB size 27 mm in diameter(size little biger CR2032 battery):
 
 ![PCB Down](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/Imgs/PCBSizesATtiny13BinaryWatches.png)
 
+The thickness of the board is recommended to take 0.8mm otherwise it may not fit into the case.
+
+# Gerber files and 3D model:
+
+Files for fabrication:
+
+https://github.com/techn0man1ac/ATtiny13BinaryWatches/tree/main/PCB
+
 # PCB home page:
 
+Fresh board project here:
+
 https://oshwlab.com/raznie.podelki/attiny13binarywatches
+
+# Schematic:
+
+It's have simple schematic, there are 15 components in total:
+
+![Schematic clock](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/PCB/Schematic/Schematic_ATtiny13BinaryWatches_2023-08-30.png)
 
 # How to flash
 
@@ -65,13 +82,5 @@ https://github.com/techn0man1ac/ATtiny13BinaryWatches/tree/main/t13BinWatches
 
 It's project full open source(PCB and code).
 
-# Schematic:
 
-It's have simple schematic, there are 15 components in total:
-
-![Schematic clock](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/PCB/Schematic/Schematic_ATtiny13BinaryWatches_2023-08-30.png)
-
-# Gerber files and 3D model:
-
-https://github.com/techn0man1ac/ATtiny13BinaryWatches/tree/main/PCB
 
