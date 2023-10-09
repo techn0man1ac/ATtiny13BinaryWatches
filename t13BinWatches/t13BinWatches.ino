@@ -20,24 +20,25 @@
 #include <avr/power.h>
 #include <avr/interrupt.h>
 
+#define msPerCycleReal 559    // it's mean 500 ms in real life
+#define MsIn12Hours 43200000  // 43200000 ms -> 43200 sec = 12h
 
-#define msPerCycleReal 560  // it's mean 500 ms in real life
+uint8_t Hours = 9;    // <- Set time in hours here(0..11)
+uint8_t Minutes = 15;  // <- Set time in minutes here(5..55)
 
-volatile unsigned long MSec = 33120000;  // 09:15 (3600sec. per hour * 6)
-uint8_t Minutes = 0;
-uint8_t Hours = 0;
+volatile uint32_t MSec = Hours * 3600000 + Minutes * 60000;  // 33300000 is 09:15
 
 uint8_t Mode = 0;
 
-ISR(WDT_vect) {            // code iteration time is 200 nS
+ISR(WDT_vect) {            // If button ont press code iteration time is 100 nS
   MSec += msPerCycleReal;  // 500 ms per cycle
 
-  if (MSec >= 43200000) {    // 43200000 ms -> 43200 sec = 12h
-    MSec = MSec - 43200000;  // increment MSec value compensation -> 43199999 + 555 = 43200554 -> 554
+  if (MSec >= MsIn12Hours) {
+    MSec = MSec - MsIn12Hours;  // increment MSec value compensation -> 43199999 + 555 = 43200554 -> 554
   }
 
-  if (PINB & (1 << PINB4) || Mode > 0) {  // if (digitalRead(4) == HIGH)
-    Mode = ShowTime(Mode);                // Show time on LED in binary format
+  if (PINB & (1 << PINB4) || Mode > 0) {  // if (digitalRead(4) == HIGH) or we in show time mode
+    Mode = Time(Mode);                    // Show time on LED in binary format
   }
 
   WDTCR |= (1 << WDTIE);
@@ -61,22 +62,22 @@ int main() {
   return 0;
 }
 
-uint8_t ShowTime(uint8_t currState) {
+uint8_t Time(uint8_t currState) {
   uint8_t LEDValue = 0;
   switch (currState) {  //Final state machine
     case 0:
       if (!MSec) {  // protect divide by zero(if MSec not = 0), thanks ChatGPT
         Hours = 0;
       } else {
-        Hours = MSec / 3600000;  // 3600 sec per hour
+        Hours = MSec / 3600000;  // 3600 sec per hour * 1000(ms)
       }
 
       if (Hours == 0) {
-        LEDValue = 12;  // 
+        LEDValue = 12;  //
       } else {
         LEDValue = Hours;
       }
-      DDRB = 0b1111; // Turn on ouptuts
+      DDRB = 0b1111;  // Turn on ouptuts
 
       currState = 1;  // Next state
       break;
@@ -95,7 +96,7 @@ uint8_t ShowTime(uint8_t currState) {
 
     case 2:
       LEDValue = 0;
-      DDRB = 0b0000; // Turn off outputs(Hi-Z state) for low consumption
+      DDRB = 0b0000;  // Turn off outputs(Hi-Z state) for low consumption
       currState = 0;
       break;
 
