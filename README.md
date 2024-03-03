@@ -28,7 +28,7 @@ PCB Down side:
 
 PCB size 27 mm in diameter(size little biger CR2032 battery):
 
-![PCB Down](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/Imgs/PCBSizesATtiny13BinaryWatches.png)
+![PCB Size](https://raw.githubusercontent.com/techn0man1ac/ATtiny13BinaryWatches/main/Imgs/PCBSizesATtiny13BinaryWatches.png)
 
 The thickness of the board is recommended to take 0.8mm otherwise it may not fit into the case.
 
